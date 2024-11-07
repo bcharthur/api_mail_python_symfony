@@ -34,7 +34,7 @@ document.getElementById('search-btn').addEventListener('click', function () {
             return response.json();
         })
         .then(data => {
-            console.log('Réponse du serveur :', data);
+            // console.log('Réponse du serveur :', data);
 
             // Cacher le spinner dans le bouton et réactiver le bouton
             searchBtnText.classList.remove('d-none');
