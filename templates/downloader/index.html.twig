@@ -1,23 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DownloaderController!{% endblock %}
+{% block title %}Web Downloader{% endblock %}
 
 {% block body %}
-    <!-- Ajouter ceci dans votre fichier index.html.twig -->
     <div class="container mt-5">
         <h1 class="text-center">Web Downloader</h1>
+
+        <!-- Icônes des plateformes supportées -->
+        <div class="text-center mb-4">
+            <i class="fab fa-youtube fa-2x mx-2"></i>
+            <i class="fab fa-dailymotion fa-2x mx-2"></i>
+            <i class="fab fa-vimeo fa-2x mx-2"></i>
+            <i class="fab fa-soundcloud fa-2x mx-2"></i>
+            <!-- Ajoutez d'autres icônes selon vos besoins -->
+        </div>
+
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <!-- Barre de recherche -->
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Entrez l'URL de la vidéo YouTube" id="video-url">
+                    <input type="text" class="form-control" placeholder="Entrez l'URL de la vidéo" id="video-url">
                     <button class="btn btn-primary" type="button" id="search-btn">
                         <span id="search-btn-text">Rechercher</span>
                         <span id="search-btn-spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                     </button>
-
                 </div>
-
 
                 <!-- Détails de la vidéo (initialement masqués) -->
                 <div id="video-details" class="card d-none mt-3">
