@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DownloaderController!{% endblock %}
+
+{% block body %}
+    <!-- Ajouter ceci dans votre fichier index.html.twig -->
+    <div class="container mt-5">
+        <h1 class="text-center">YouTube Downloader</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Barre de recherche -->
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Entrez l'URL de la vidéo YouTube" id="video-url">
+                    <button class="btn btn-primary" type="button" id="search-btn">
+                        <span id="search-btn-text">Rechercher</span>
+                        <span id="search-btn-spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    </button>
+
+                </div>
+
+
+                <!-- Détails de la vidéo (initialement masqués) -->
+                <div id="video-details" class="card d-none mt-3">
+                    <div class="position-relative">
+                        <img src="" class="card-img-top" id="video-thumbnail" alt="Miniature de la vidéo" style="display: none;">
+                        <!-- Spinner sur la miniature -->
+                        <div id="thumbnail-spinner" class="position-absolute top-50 start-50 translate-middle">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Chargement...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" id="video-title"></h5>
+                        <button class="btn btn-success" id="download-btn">Télécharger</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ asset('js/downloader/script-ytb.js') }}"></script>
+{% endblock %}
