@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +21,25 @@ class DownloaderController extends AbstractController
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
+    }
+
+    private function clearThumbnailCache()
+    {
+        // Obtenir le chemin absolu du répertoire de cache des miniatures
+        $projectDir = $this->getParameter('kernel.project_dir');
+        $cacheDir = $projectDir . '/public/images/cache/';
+
+        $filesystem = new Filesystem();
+
+        try {
+            if ($filesystem->exists($cacheDir)) {
+                // Supprimer les fichiers à l'intérieur du répertoire de cache
+                $filesystem->remove(glob($cacheDir . '*'));
+            }
+        } catch (IOExceptionInterface $exception) {
+            $this->logger->error("Erreur lors de la suppression du cache des miniatures : " . $exception->getMessage());
+            // Vous pouvez gérer l'erreur selon vos besoins
+        }
     }
 
     #[Route('/downloader', name: 'app_downloader')]
@@ -39,6 +59,9 @@ class DownloaderController extends AbstractController
         if (!$url) {
             return new JsonResponse(['success' => false, 'message' => 'URL invalide.']);
         }
+
+        // Vider le cache des miniatures avant la nouvelle recherche
+        $this->clearThumbnailCache();
 
         // Obtenir le chemin absolu du répertoire du projet
         $projectDir = $this->getParameter('kernel.project_dir');
